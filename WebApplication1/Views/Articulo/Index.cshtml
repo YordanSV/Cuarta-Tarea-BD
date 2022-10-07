@@ -1,0 +1,82 @@
+﻿@*model IEnumerable<WebApplication1.Models.Articulo>*@
+@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Inicio";
+}
+
+@*<h1>Index</h1>*@
+
+<form style="margin-bottom: 20px;" asp-action="Index">
+    <label class="control-label">Nombre</label><br />
+    <input type="text" name="nombre" value=""/>
+    <button class="btn btn-primary" type="submit" id="FiltNombre">Filtrar por nombre</button>
+</form>
+
+<form style="margin-bottom: 20px;" asp-action="filtCant">
+    <label class="control-label">Cantidad</label><br />
+    <input type="number" name="cantidad" value="" min="1" />
+    <button class="btn btn-primary" type="submit" id="FiltCantidad">Filtrar por cantidad</button>
+</form>
+
+<form style="margin-bottom: 20px;" asp-action="filtClase">
+    <label class="control-label">Clase de Articulo</label><br />
+    <select name="clase" class="form-control" style="inline-size:auto; display:inline">
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            if (Model.Rows[i][0].ToString() == "0"){
+                <option>@Model.Rows[i][1].ToString()</option>
+            }
+        }
+    </select>
+    <button class="btn btn-primary" type="submit" id="FiltCantidad">Filtrar por clase</button>
+</form>
+
+<div style="margin-bottom: 20px;">
+    <a class="btn btn-success" style="margin-inline-start: 50px; margin-inline-end: 100px" asp-action="Create">Insertar</a>
+    <a class="btn btn-danger" asp-controller="Login" asp-action="Index">Salir</a>
+</div>
+
+<script>window.history.forward()</script>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">@Model.Columns[0].ColumnName</p>
+            </th>
+            <th>
+                <p style="height:5px">@Model.Columns[1].ColumnName</p>
+            </th>
+            <th>
+                <p style="height:5px">@*Model.Columns[1].ColumnName*@Clase</p>
+            </th>
+            <th>
+                <p style="height:5px">@Model.Columns[3].ColumnName</p>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            if (Model.Rows[i][0].ToString() != "0")
+            {
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
