@@ -31,16 +31,132 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Shared/_Layout.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Shared/_LayoutAdministrador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRBZG1pbmlzdHJhZG9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Shared/_LayoutLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Shared/_LayoutNoAdministrador.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXROb0FkbWluaXN0cmFkb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/Consultas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreatePersona.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ3JlYXRlUGVyc29uYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreatePersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ3JlYXRlUGVyc29uYVByb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreatePropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ3JlYXRlUHJvcGllZGFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreateUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ3JlYXRlVXN1YXJpby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreateUsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ3JlYXRlVXN1YXJpb1Byb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DeletePersona.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlUGVyc29uYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DeletePersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlUGVyc29uYVByb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DeletePropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlUHJvcGllZGFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DeleteUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlVXN1YXJpby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DeleteUsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlVXN1YXJpb1Byb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsPersona.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1BlcnNvbmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsPersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1BlcnNvbmFQcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1Byb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1VzdWFyaW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsUsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1VzdWFyaW9Qcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/EditPersona.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRWRpdFBlcnNvbmEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/EditPersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRWRpdFBlcnNvbmFQcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/EditPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRWRpdFByb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/EditUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRWRpdFVzdWFyaW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/EditUsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRWRpdFVzdWFyaW9Qcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/Persona.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcUGVyc29uYS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/PersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcUGVyc29uYVByb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/Propiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcUHJvcGllZGFkLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/Usuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcVXN1YXJpby5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/UsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcVXN1YXJpb1Byb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Details.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxEZXRhaWxzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/_ViewImports.cshtml]

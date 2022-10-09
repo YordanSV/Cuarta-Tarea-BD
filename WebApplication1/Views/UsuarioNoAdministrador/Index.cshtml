@@ -1,0 +1,72 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Inicio - Propietario";
+    Layout = "~/Views/Shared/_LayoutNoAdministrador.cshtml";
+}
+
+<script>window.history.forward()</script>
+
+<h1>Propiedades</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">id</p>
+            </th>
+            <th>
+                <p style="height:5px">Valor Fiscal</p>
+            </th>
+            <th>
+                <p style="height:5px">Area</p>
+            </th>
+            <th>
+                <p style="height:5px">Fecha registro</p>
+            </th>
+            <th>
+                <p style="height:5px">Tipo Zona</p>
+            </th>
+            <th>
+                <p style="height:5px">Tipo Terreno</p>
+            </th>
+            <th>
+                <p style="height:5px">Lecturas</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @for (int i = 0; i < Model.Rows.Count; i++)
+        {
+            if (Model.Rows[i][0].ToString() != "0")
+            {
+                int id = (int) Model.Rows[i][0];
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][5].ToString()</p>
+                    </td>
+                    <td>
+                        <a asp-action="Details" asp-route-id="@id">Ver lecturas</a>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+
+

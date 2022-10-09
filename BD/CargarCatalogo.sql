@@ -3,7 +3,7 @@ USE [SegundaTarea]
 
 DECLARE @hdoc int;  
 DECLARE @info xml;
-SET @info = (SELECT *FROM OPENROWSET(BULK 'C:\Users\Usuario\Downloads\Catalogo.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
+SET @info = (SELECT *FROM OPENROWSET(BULK 'C:\Users\jburg\OneDrive\Escritorio\Jose_Pablo\TEC\2022\II_Semestre\Bases de Datos I\Tareas\Tarea 2\xml\Catalogo.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @info
 
 
