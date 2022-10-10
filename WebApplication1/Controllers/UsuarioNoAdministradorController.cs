@@ -11,7 +11,7 @@ namespace WebApplication1.Controllers
     public class UsuarioNoAdministradorController : Controller
     {
         private readonly ApplicationDbContext _context;
-        private string userName;
+        private static string userName;
         public UsuarioNoAdministradorController(ApplicationDbContext context)
         {
             _context = context;
@@ -22,7 +22,8 @@ namespace WebApplication1.Controllers
             SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
                 "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
             SqlCommand cmd = new SqlCommand();
-            userName = user;
+            if (user != null)
+                userName = user;
             int outResult = 0;
 
             cmd.Connection = con;

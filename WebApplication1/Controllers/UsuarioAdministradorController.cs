@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace WebApplication1.Controllers
@@ -10,26 +11,101 @@ namespace WebApplication1.Controllers
         // GET: HomeController1
         public ActionResult Persona()
         {
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
+            int outResult = 0;
+
+            cmd.Connection = con;
+            cmd.CommandText = "proc_tblPersonas";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
             return View(dt);
         }
 
         public ActionResult Propiedad()
         {
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
+            int outResult = 0;
+
+            cmd.Connection = con;
+            cmd.CommandText = "proc_tblPropiedades";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
             return View(dt);
         }
 
         public ActionResult Usuario()
         {
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
+            int outResult = 0;
+
+            cmd.Connection = con;
+            cmd.CommandText = "proc_tblUsuarios";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
             return View(dt);
         }
 
         public ActionResult PersonaPropiedad()
         {
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
+            int outResult = 0;
+
+            cmd.Connection = con;
+            cmd.CommandText = "proc_tblPersonaPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
             return View(dt);
         }
 
         public ActionResult UsuarioPropiedad()
         {
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            SqlCommand cmd = new SqlCommand();
+            int outResult = 0;
+
+            cmd.Connection = con;
+            cmd.CommandText = "proc_tblUsuarioPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
             return View(dt);
         }
 

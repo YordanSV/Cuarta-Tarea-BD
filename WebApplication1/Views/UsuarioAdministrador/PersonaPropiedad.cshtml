@@ -14,41 +14,25 @@
     <thead>
         <tr>
             <th>
-                <p style="height:5px">id</p>
-            </th>
-            <th>
-                <p style="height:5px">Area</p>
+                <p style="height:5px">Persona</p>
             </th>
             <th>
                 <p style="height:5px">Valor Fiscal</p>
             </th>
-            <th>
-                <p style="height:5px">Fecha registro</p>
-            </th>
-            <th>
-                <p style="height:5px">Lecutras</p>
-            </th>
         </tr>
     </thead>
     <tbody>
-
-        @for (int i = 0; i < Model.Rows.Count; i++)
-        {
-            if (Model.Rows[i][0].ToString() != "0")
+        @{
+            int id;
+            for (int i = 0; i < Model.Rows.Count; i++)
             {
-                int id = (int)Model.Rows[i][0];
+                id = (int)Model.Rows[i][0];
                 <tr>
-                    <td>
-                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
-                    </td>
                     <td>
                         <p style="height:5px">@Model.Rows[i][1].ToString()</p>
                     </td>
                     <td>
                         <p style="height:5px">@Model.Rows[i][2].ToString()</p>
-                    </td>
-                    <td>
-                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
                     </td>
                     <td>
                         <a asp-action="EditPersonaPropiedad" asp-route-id="@id">Edit</a> |
