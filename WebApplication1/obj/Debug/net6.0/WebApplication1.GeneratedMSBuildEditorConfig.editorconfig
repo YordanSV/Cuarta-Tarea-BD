@@ -47,8 +47,24 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ConsultaPropiedadesPropietario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFQcm9waWVkYWRlc1Byb3BpZXRhcmlvLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ConsultaPropiedadesUsuario.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFQcm9waWVkYWRlc1VzdWFyaW8uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ConsultaPropietarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFQcm9waWV0YXJpb1Byb3BpZWRhZC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/Consultas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ConsultaUsuariosPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFVc3Vhcmlvc1Byb3BpZWRhZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/CreatePersona.cshtml]

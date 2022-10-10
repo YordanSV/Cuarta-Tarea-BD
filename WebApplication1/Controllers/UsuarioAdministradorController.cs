@@ -114,14 +114,122 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        // GET: HomeController1/Details/5
-        public ActionResult Details(int id)
+        public ActionResult ConsultaPropiedadesPropietario()
         {
             return View();
         }
 
-        // GET: HomeController1/Create
-        public ActionResult Create()
+        public ActionResult ConsultaPropietarioPropiedad()
+        {
+            return View();
+        }
+
+        public ActionResult ConsultaPropiedadesUsuario()
+        {
+            return View();
+        }
+
+        public ActionResult ConsultaUsuariosPropiedad()
+        {
+            return View();
+        }
+
+        public ActionResult CreatePersona()
+        {
+            return View();
+        }
+
+        public ActionResult EditPersona(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeletePersona(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DetailsPersona(int id)
+        {
+            return View();
+        }
+
+        public ActionResult CreatePropiedad()
+        {
+            return View();
+        }
+
+        public ActionResult EditPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeletePropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DetailsPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult CreateUsuario()
+        {
+            return View();
+        }
+
+        public ActionResult EditUsuario(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteUsuario(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DetailsUsuario(int id)
+        {
+            return View();
+        }
+
+        public ActionResult CreatePersonaPropiedad()
+        {
+            return View();
+        }
+
+        public ActionResult EditPersonaPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeletePersonaPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DetailsPersonaPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult CreateUsuarioPropiedad()
+        {
+            return View();
+        }
+
+        public ActionResult EditUsuarioPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DeleteUsuarioPropiedad(int id)
+        {
+            return View();
+        }
+
+        public ActionResult DetailsUsuarioPropiedad(int id)
         {
             return View();
         }
@@ -141,12 +249,6 @@ namespace WebApplication1.Controllers
             }
         }
 
-        // GET: HomeController1/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
         // POST: HomeController1/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -160,12 +262,6 @@ namespace WebApplication1.Controllers
             {
                 return View();
             }
-        }
-
-        // GET: HomeController1/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
         }
 
         // POST: HomeController1/Delete/5
