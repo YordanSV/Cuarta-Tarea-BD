@@ -13,7 +13,7 @@ CREATE PROCEDURE [dbo].[proc_tblUsuarioPropiedad]
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT Pr.ID, P.Nombre, Pr.ValorFiscal
+	SELECT P.Nombre, Pr.ID
 	FROM dbo.Propiedad Pr
 	INNER JOIN Usuario U
 	ON U.ID = Pr.IdUsuario

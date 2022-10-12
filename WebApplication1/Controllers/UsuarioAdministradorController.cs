@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
+using System.Collections.Generic;
 using System.Data;
 
 namespace WebApplication1.Controllers
@@ -8,14 +10,13 @@ namespace WebApplication1.Controllers
     public class UsuarioAdministradorController : Controller
     {
         DataTable dt = new DataTable();
+        SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+        SqlCommand cmd = new SqlCommand();
+        int outResult = 0;
         // GET: HomeController1
         public ActionResult Persona()
         {
-            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
-            SqlCommand cmd = new SqlCommand();
-            int outResult = 0;
-
             cmd.Connection = con;
             cmd.CommandText = "proc_tblPersonas";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -31,11 +32,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult Propiedad()
         {
-            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
-            SqlCommand cmd = new SqlCommand();
-            int outResult = 0;
-
             cmd.Connection = con;
             cmd.CommandText = "proc_tblPropiedades";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -51,11 +47,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult Usuario()
         {
-            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
-            SqlCommand cmd = new SqlCommand();
-            int outResult = 0;
-
             cmd.Connection = con;
             cmd.CommandText = "proc_tblUsuarios";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -71,11 +62,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult PersonaPropiedad()
         {
-            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
-            SqlCommand cmd = new SqlCommand();
-            int outResult = 0;
-
             cmd.Connection = con;
             cmd.CommandText = "proc_tblPersonaPropiedad";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -91,11 +77,6 @@ namespace WebApplication1.Controllers
 
         public ActionResult UsuarioPropiedad()
         {
-            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
-            SqlCommand cmd = new SqlCommand();
-            int outResult = 0;
-
             cmd.Connection = con;
             cmd.CommandText = "proc_tblUsuarioPropiedad";
             cmd.CommandType = CommandType.StoredProcedure;
@@ -114,24 +95,81 @@ namespace WebApplication1.Controllers
             return View();
         }
 
-        public ActionResult ConsultaPropiedadesPropietario()
+        public ActionResult ConsultaPropiedadesPropietario(string ident)
         {
-            return View();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_consultaPropiedadesPropietario";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            if (int.TryParse(ident, out int id))
+            {
+                cmd.Parameters.AddWithValue("@inNombre", "");
+                cmd.Parameters.AddWithValue("@inIdent", id);
+            }
+            else
+            {
+                cmd.Parameters.AddWithValue("@inNombre", ident);
+                cmd.Parameters.AddWithValue("@inIdent", 0);
+            }
+            cmd.Parameters.AddWithValue("@outResult", outResult);
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return View(dt);
         }
 
-        public ActionResult ConsultaPropietarioPropiedad()
+        public ActionResult ConsultaPropietarioPropiedad(int numFinca)
         {
-            return View();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_consultaPropietarioPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@outResult", outResult);
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return View(dt);
         }
 
-        public ActionResult ConsultaPropiedadesUsuario()
+        public ActionResult ConsultaPropiedadesUsuario(string nombre)
         {
-            return View();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_consultaPropiedadesUsuario";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inNombre", nombre);
+            cmd.Parameters.AddWithValue("@outResult", outResult);
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return View(dt);
         }
 
-        public ActionResult ConsultaUsuariosPropiedad()
+        public ActionResult ConsultaUsuariosPropiedad(int numFinca)
         {
-            return View();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_consultaUsuariosPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@outResult", outResult);
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+            return View(dt);
         }
 
         public ActionResult CreatePersona()

@@ -13,7 +13,7 @@ CREATE PROCEDURE [dbo].[proc_tblPersonaPropiedad]
 AS
 BEGIN
 	SET NOCOUNT ON;
-	SELECT PP.ID, P.Nombre, Pr.ValorFiscal
+	SELECT PP.ID, P.Nombre, Pr.ID
 	FROM dbo.PXP PP
 	INNER JOIN dbo.Persona P
 	ON P.ID = PP.IdPersona

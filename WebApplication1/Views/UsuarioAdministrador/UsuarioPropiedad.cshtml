@@ -17,7 +17,7 @@
                 <p style="height:5px">Usuario</p>
             </th>
             <th>
-                <p style="height:5px">Valor Fiscal</p>
+                <p style="height:5px">Numero de finca</p>
             </th>
         </tr>
     </thead>
@@ -27,13 +27,13 @@
             int id;
             for (int i = 0; i < Model.Rows.Count; i++)
             {
-                id = (int)Model.Rows[i][0];
+                id = (int)Model.Rows[i][1];
                 <tr>
                     <td>
-                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
                     </td>
                     <td>
-                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
                     </td>
                     <td>
                         <a asp-action="EditUsuarioPropiedad" asp-route-id="@id">Edit</a> |
