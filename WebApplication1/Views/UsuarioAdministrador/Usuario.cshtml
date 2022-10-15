@@ -1,0 +1,54 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+
+
+<h1>Usuario</h1>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">UserName</p>
+            </th>
+            <th>
+                <p style="height:5px">Password</p>
+            </th>
+            <th>
+                <p style="height:5px">Tipo Usuario</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int id;
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                id = (int)Model.Rows[i][0];
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                    <td>
+                        <a asp-action="EditUsuario" asp-route-id="@id">Edit</a> |
+                        <a asp-action="DetailsUsuario" asp-route-id="@id">Details</a> |
+                        <a asp-action="DeleteUsuario" asp-route-id="@id">Delete</a>
+                    </td>
+                </tr>
+            }
+        }
+        
+    </tbody>
+</table>

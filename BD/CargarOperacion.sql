@@ -1,3 +1,5 @@
+USE [SegundaTarea]
+
 DECLARE @Fechas TABLE (fechaOperacion DATE);  
 
 DECLARE @Persona TABLE(nombre VARCHAR(128), valorDocId BIGINT, idTipoDoc VARCHAR(128), email VARCHAR(128), telefono1 BIGINT, telefono2 BIGINT);
@@ -10,7 +12,7 @@ DECLARE @fechaNodo VARCHAR(20);
 DECLARE @xmlOperacion xml;
 
 
-SET @xmlOperacion = (SELECT *FROM OPENROWSET(BULK 'C:\Users\Usuario\Downloads\Operaciones.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
+SET @xmlOperacion = (SELECT *FROM OPENROWSET(BULK 'C:\Users\jburg\OneDrive\Escritorio\Jose_Pablo\TEC\2022\II_Semestre\Bases de Datos I\Tareas\Tarea 2\xml\Operaciones.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
 
 DECLARE @hdoc int;  
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @xmlOperacion

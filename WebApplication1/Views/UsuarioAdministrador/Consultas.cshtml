@@ -1,0 +1,31 @@
+﻿
+@{
+    ViewData["Title"] = "Consultas";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h1>Consultas</h1>
+
+<form style="margin-bottom: 20px;" asp-action="ConsultaPropiedadesPropietario">
+    <label class="control-label">Propiedades de un propietario</label><br />
+    <input type="text" name="ident" value="" size="40" placeholder="Digite el nombre o identificación del propietario" autocomplete="off" required/>
+    <button class="btn btn-primary" type="submit" id="FiltNombre">Consultar</button>
+</form>
+
+<form style="margin-bottom: 20px;" asp-action="ConsultaPropietarioPropiedad">
+    <label class="control-label">Propietario de una propiedad</label><br />
+    <input type="number" name="numFinca" value="" style="width:365px" placeholder="Digite el número de finca" autocomplete="off" required/>
+    <button class="btn btn-primary" type="submit" id="FiltNombre">Consultar</button>
+</form>
+
+<form style="margin-bottom: 20px;" asp-action="ConsultaPropiedadesUsuario">
+    <label class="control-label">Propiedades que puede ver un usuario</label><br />
+    <input type="text" name="nombre" value="" size="40" placeholder="Digite el nombre del usuario" autocomplete="off" required />
+    <button class="btn btn-primary" type="submit" id="FiltNombre">Consultar</button>
+</form>
+
+<form style="margin-bottom: 20px;" asp-action="ConsultaUsuariosPropiedad">
+    <label class="control-label">Usuarios de una propiedad</label><br />
+    <input type="number" name="numFinca" value="" style="width:365px" placeholder="Digite el número de finca" autocomplete="off" required />
+    <button class="btn btn-primary" type="submit" id="FiltNombre">Consultar</button>
+</form>

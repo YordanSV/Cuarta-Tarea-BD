@@ -1,0 +1,63 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "ConsultaPropietarioPropiedad";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h1>Consulta Propiedades de un Propietario</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">Nombre</p>
+            </th>
+            <th>
+                <p style="height:5px">Tipo Doc. Identidad</p>
+            </th>
+            <th>
+                <p style="height:5px">Valor Doc. Identidad</p>
+            </th>
+            <th>
+                <p style="height:5px">Email</p>
+            </th>
+            <th>
+                <p style="height:5px">Telefono 1</p>
+            </th>
+            <th>
+                <p style="height:5px">Telefono 2</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int id;
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                id = (int)Model.Rows[i][0];
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][5].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][6].ToString()</p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
