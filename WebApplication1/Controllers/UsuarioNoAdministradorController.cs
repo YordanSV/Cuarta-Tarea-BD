@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using System.Data;
+using System.Drawing;
 using System.Threading.Tasks;
 using WebApplication1.Data;
 
@@ -42,21 +43,28 @@ namespace WebApplication1.Controllers
         }
 
         // GET: HomeController1/Details/5
-        public async Task<ActionResult> Details(int id)
+        public ActionResult Lecturas(int id)
         {
-            if (id == null || _context.Articulo == null)
-            {
-                return NotFound();
-            }
+            SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
+                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+            int outResult = 0;
 
-            var articulo = await _context.Articulo
-                .FirstOrDefaultAsync(m => m.id == id);
-            if (articulo == null)
-            {
-                return NotFound();
-            }
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_consultaMovConsumoPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
 
-            return View(articulo);
+            con.Open();
+            cmd.Parameters.AddWithValue("@inId", id);
+            SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+            retorno.Direction = ParameterDirection.Output;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            return View(dt);
         }
     }
 }

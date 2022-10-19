@@ -43,9 +43,6 @@
                 int id = (int) Model.Rows[i][0];
                 <tr>
                     <td>
-                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
-                    </td>
-                    <td>
                         <p style="height:5px">@Model.Rows[i][1].ToString()</p>
                     </td>
                     <td>
@@ -61,7 +58,10 @@
                         <p style="height:5px">@Model.Rows[i][5].ToString()</p>
                     </td>
                     <td>
-                        <a asp-action="Details" asp-route-id="@id">Ver lecturas</a>
+                        <p style="height:5px">@Model.Rows[i][6].ToString()</p>
+                    </td>
+                    <td>
+                        <a asp-action="Lecturas" asp-route-id="@id">Ver lecturas</a>
                     </td>
                 </tr>
             }

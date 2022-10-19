@@ -1,12 +1,14 @@
 USE [SegundaTarea]
 
+SET NOCOUNT ON
+
 DECLARE @Fechas TABLE (fechaOperacion DATE);  
 
 DECLARE @Persona TABLE(nombre VARCHAR(128), ValorDocumentoIdentidad BIGINT, TipoDocumentoIdentidad VARCHAR(128), Email VARCHAR(128),Telefono1 BIGINT, Telefono2 BIGINT);
 DECLARE @Propiedad TABLE(NumeroFinca INT,MetrosCuadrados FLOAT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno VARCHAR(128), IdTipoZona VARCHAR(128), IdUsuario INT);
 DECLARE @Usuario TABLE(ValorDocumentoIdentidad INT,UserName VARCHAR(128),VPassWord VARCHAR(128), TipoUsuario VARCHAR(128));
 DECLARE @PersonasyPropiedades TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio VARCHAR(128),FechaFin VARCHAR(128));
---DECLARE @PropiedadesyUsuarios TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio DATE,FechaFin DATE);
+DECLARE @PropiedadesyUsuarios TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT);
 
 
 ----Declaracion de variables----
@@ -14,7 +16,7 @@ DECLARE @fechaItera DATE, @fechaFin DATE, @lo INT,@hi INT; -- una DECLARE siempr
 DECLARE @fechaNodo VARCHAR(20);
 DECLARE @xmlOperacion xml;
 
-SET @xmlOperacion = (SELECT *FROM OPENROWSET(BULK 'C:\Users\Usuario\Documents\Semestre actual\BD\SegundaTarea\Operaciones.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
+SET @xmlOperacion = (SELECT *FROM OPENROWSET(BULK 'C:\Users\jburg\OneDrive\Escritorio\Jose_Pablo\TEC\2022\II_Semestre\Bases de Datos I\Tareas\Tarea 2\xml\Operaciones.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
 
 DECLARE @hdoc int;  
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @xmlOperacion
@@ -49,14 +51,15 @@ BEGIN
 
 	--DECLARE @Propiedad TABLE(NumeroFinca INT,Area INT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno INT, IdTipoZona INT, IdUsuario INT)
 	--SET IDENTITY_INSERT dbo.Propiedad ON;
-	INSERT dbo.Propiedad(Area, ValorFiscal , FechaRegistro, IdTipoTerreno, IdTipoZona,IdUsuario)
+	INSERT dbo.Propiedad(NumFinca, Area, ValorFiscal , FechaRegistro, IdTipoTerreno, IdTipoZona,IdUsuario)
 	SELECT
+		p.NumeroFinca,
 		p.MetrosCuadrados,
 		p.ValorFiscal,
 		@fechaItera,
 		t.ID,
 		z.ID,
-		1
+		NULL
 	FROM @Propiedad AS p
 		INNER JOIN dbo.TipoTerreno t ON t.Nombre = p.IdTipoTerreno
 		INNER JOIN dbo.TipoZona z ON z.Nombre = p.IdTipoZona
@@ -104,32 +107,47 @@ BEGIN
 	INNER JOIN dbo.Persona p ON u.ValorDocumentoIdentidad = p.ValorDocId
 	
 	
-		
+	-----------Insertar Personas-Propiedades-------------
 	INSERT @PersonasyPropiedades(ValorDocumentoIdentidad,NumeroFinca, TipoAsociacion,FechaInicio,FechaFin)
     SELECT 
 		T.Item.value('@ValorDocumentoIdentidad','INT'),
         T.Item.value('@NumeroFinca','INT'),
         T.Item.value('@TipoAsociacion','VARCHAR(128)'),
-		IIF (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Agregar',  @fechaItera,1),
-		IIf (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Eliminar', @fechaItera,1)
+		IIF (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Agregar',  @fechaItera,NULL),
+		IIf (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Eliminar', @fechaItera,NULL)
     FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/PersonasyPropiedades/PropiedadPersona') as T(Item)
 
 
 	INSERT dbo.PXP(IdPersona,IdPropiedad,FechaInicio,FechaFin)
 	SELECT 
-	p.ValorDocId,
-	pro.NumeroFinca,
+	p.ID,
+	pro.ID,
 	pxp.FechaInicio,
 	pxp.FechaFin
 	FROM @PersonasyPropiedades pxp
 	INNER JOIN dbo.Persona p
 	ON pxp.ValorDocumentoIdentidad = p.ValorDocId
-	INNER JOIN @Propiedad pro 
-	ON pxp.NumeroFinca = pro.NumeroFinca
+	INNER JOIN dbo.Propiedad pro 
+	ON pxp.NumeroFinca = pro.NumFinca
 	--WHERE pxp.TipoAsociacion = 'Agregar'
 			
 	
+	-----------Insertar Usuarios-Propiedades-------------
+	INSERT @PropiedadesyUsuarios(ValorDocumentoIdentidad,NumeroFinca)
+    SELECT 
+		T.Item.value('@ValorDocumentoIdentidad','INT'),
+        T.Item.value('@NumeroFinca','INT')
+    FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/PropiedadesyUsuarios/UsuarioPropiedad') as T(Item)
 
+	UPDATE dbo.Propiedad
+		SET IdUsuario = U.ID
+		FROM Usuario U
+		INNER JOIN dbo.Persona P
+		ON U.IdPersona = P.ID
+		INNER JOIN @PropiedadesyUsuarios PU
+		ON P.ValorDocId = PU.ValorDocumentoIdentidad
+		INNER JOIN dbo.Propiedad Pr
+		ON Pr.NumFinca = PU.NumeroFinca
 
 	SELECT * FROM dbo.Persona
 	SELECT * FROM dbo.Usuario

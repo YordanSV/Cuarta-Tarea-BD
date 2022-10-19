@@ -1,0 +1,53 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutNoAdministrador.cshtml";
+}
+
+<h1>Consulta de Movimientos de Consumo</h1>
+
+<p>
+    Numero de Finca: 
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">Nombre</p>
+            </th>
+            <th>
+                <p style="height:5px">Fecha</p>
+            </th>
+            <th>
+                <p style="height:5px">Monto</p>
+            </th>
+            <th>
+                <p style="height:5px">Nuevo Saldo</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>
