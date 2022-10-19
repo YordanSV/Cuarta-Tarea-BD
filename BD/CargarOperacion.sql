@@ -5,6 +5,9 @@ DECLARE @Fechas TABLE (fechaOperacion DATE);
 DECLARE @Persona TABLE(nombre VARCHAR(128), ValorDocumentoIdentidad BIGINT, TipoDocumentoIdentidad VARCHAR(128), Email VARCHAR(128),Telefono1 BIGINT, Telefono2 BIGINT);
 DECLARE @Propiedad TABLE(NumeroFinca INT,MetrosCuadrados FLOAT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno VARCHAR(128), IdTipoZona VARCHAR(128), IdUsuario INT);
 DECLARE @Usuario TABLE(ValorDocumentoIdentidad INT,UserName VARCHAR(128),VPassWord VARCHAR(128), TipoUsuario VARCHAR(128));
+DECLARE @PersonasyPropiedades TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio VARCHAR(128),FechaFin VARCHAR(128));
+--DECLARE @PropiedadesyUsuarios TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio DATE,FechaFin DATE);
+
 
 ----Declaracion de variables----
 DECLARE @fechaItera DATE, @fechaFin DATE, @lo INT,@hi INT; -- una DECLARE siempre termina en ;
@@ -31,7 +34,33 @@ BEGIN
             continue
 
     SET @fechaNodo = CONVERT(VARCHAR(20),@fechaItera,23) --Necesitamos un aux para leer @fechaItera como tipo VARCHAR
-		
+	--DECLARE @PersonasyPropiedades TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio DATE,FechaFin DATE);
+			-----------Insertar Propiedad-------------
+
+    INSERT @Propiedad(NumeroFinca,MetrosCuadrados ,ValorFiscal,IdTipoTerreno ,IdTipoZona)
+    SELECT 
+		T.Item.value('@NumeroFinca','INT'),
+		T.Item.value('@MetrosCuadrados','FLOAT'),
+        T.Item.value('@ValorFiscal','VARCHAR(128)'),
+		T.Item.value('@tipoUsoPropiedad','VARCHAR(128)'),
+        T.Item.value('@tipoZonaPropiedad','VARCHAR(128)')
+
+	FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Propiedades/Propiedad') as T(Item)
+
+	--DECLARE @Propiedad TABLE(NumeroFinca INT,Area INT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno INT, IdTipoZona INT, IdUsuario INT)
+	--SET IDENTITY_INSERT dbo.Propiedad ON;
+	INSERT dbo.Propiedad(Area, ValorFiscal , FechaRegistro, IdTipoTerreno, IdTipoZona,IdUsuario)
+	SELECT
+		p.MetrosCuadrados,
+		p.ValorFiscal,
+		@fechaItera,
+		t.ID,
+		z.ID,
+		1
+	FROM @Propiedad AS p
+		INNER JOIN dbo.TipoTerreno t ON t.Nombre = p.IdTipoTerreno
+		INNER JOIN dbo.TipoZona z ON z.Nombre = p.IdTipoZona
+	
     ----Nueva Persona-----
     INSERT @Persona(nombre , ValorDocumentoIdentidad, TipoDocumentoIdentidad , email, telefono1, telefono2)
     SELECT T.Item.value('@Nombre','VARCHAR(128)'),
@@ -42,6 +71,7 @@ BEGIN
         T.Item.value('@Telefono2','BIGINT')
     FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Personas/Persona') as T(Item)
 
+	
 	INSERT dbo.Persona(Nombre,ValorDocId,IdTipoDoc,email,telefono1,telefono2)
 	SELECT 
 		p.nombre,
@@ -54,6 +84,8 @@ BEGIN
 	INNER JOIN dbo.TipoDocIdent d
 	ON p.TipoDocumentoIdentidad = d.Nombre
 	
+
+
 	-----------Insertar Usuarios-------------
 	INSERT @Usuario(ValorDocumentoIdentidad,UserName,VPassWord,TipoUsuario)
     SELECT T.Item.value('@ValorDocumentoIdentidad','INT'),
@@ -71,39 +103,43 @@ BEGIN
 	FROM @Usuario AS u
 	INNER JOIN dbo.Persona p ON u.ValorDocumentoIdentidad = p.ValorDocId
 	
-
-		-----------Insertar Propiedad-------------
-
-    INSERT @Propiedad(MetrosCuadrados ,ValorFiscal,IdTipoTerreno ,IdTipoZona)
-    SELECT T.Item.value('@MetrosCuadrados','FLOAT'),
-        T.Item.value('@ValorFiscal','VARCHAR(128)'),
-		T.Item.value('@tipoUsoPropiedad','VARCHAR(128)'),
-        T.Item.value('@tipoZonaPropiedad','VARCHAR(128)')
-
-
-	FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Propiedades/Propiedad') as T(Item)
-
-	--DECLARE @Propiedad TABLE(NumeroFinca INT,Area INT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno INT, IdTipoZona INT, IdUsuario INT)
-	--SET IDENTITY_INSERT dbo.Propiedad ON;
-	INSERT Propiedad(Area, ValorFiscal , FechaRegistro, IdTipoTerreno, IdTipoZona,IdUsuario)
-	SELECT
-		p.MetrosCuadrados,
-		p.ValorFiscal,
-		@fechaItera,
-		t.ID,
-		z.ID,
-		1
-	FROM @Propiedad AS p
-		INNER JOIN dbo.TipoTerreno t ON t.Nombre = p.IdTipoTerreno
-		INNER JOIN dbo.TipoZona z ON z.Nombre = p.IdTipoZona
+	
 		
+	INSERT @PersonasyPropiedades(ValorDocumentoIdentidad,NumeroFinca, TipoAsociacion,FechaInicio,FechaFin)
+    SELECT 
+		T.Item.value('@ValorDocumentoIdentidad','INT'),
+        T.Item.value('@NumeroFinca','INT'),
+        T.Item.value('@TipoAsociacion','VARCHAR(128)'),
+		IIF (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Agregar',  @fechaItera,1),
+		IIf (T.Item.value('@TipoAsociacion','VARCHAR(128)') = 'Eliminar', @fechaItera,1)
+    FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/PersonasyPropiedades/PropiedadPersona') as T(Item)
+
+
+	INSERT dbo.PXP(IdPersona,IdPropiedad,FechaInicio,FechaFin)
+	SELECT 
+	p.ValorDocId,
+	pro.NumeroFinca,
+	pxp.FechaInicio,
+	pxp.FechaFin
+	FROM @PersonasyPropiedades pxp
+	INNER JOIN dbo.Persona p
+	ON pxp.ValorDocumentoIdentidad = p.ValorDocId
+	INNER JOIN @Propiedad pro 
+	ON pxp.NumeroFinca = pro.NumeroFinca
+	--WHERE pxp.TipoAsociacion = 'Agregar'
+			
+	
+
+
 	SELECT * FROM dbo.Persona
 	SELECT * FROM dbo.Usuario
 	SELECT * FROM dbo.Propiedad
+	SELECT * FROM dbo.PXP
 
 	DELETE @Persona 
 	DELETE @Usuario
 	DELETE @Propiedad
+	DELETE @PersonasyPropiedades
     
     SET @fechaItera= (DATEADD(DAY,1,@fechaItera)) --Siguiente
 
@@ -111,12 +147,12 @@ BEGIN
 
 END;
 
-
+	DELETE dbo.PXP
 	DELETE dbo.Persona 
 	DELETE dbo.Usuario
 	DELETE dbo.Propiedad
 
-
+	DBCC CHECKIDENT (PXP, RESEED, 0)
 	DBCC CHECKIDENT (Persona, RESEED, 0)
     DBCC CHECKIDENT (Usuario, RESEED, 0)
     DBCC CHECKIDENT (Propiedad, RESEED, 0)
