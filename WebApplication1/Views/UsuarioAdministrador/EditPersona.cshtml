@@ -1,37 +1,50 @@
-﻿@model WebApplication1.Models.Articulo
+﻿@model System.Data.DataTable
 
 @{
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Editar</h1>
 
-<h4>Articulo</h4>
+<h4>Persona</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="id" />
+        <form asp-action="EditPersona">
             <div class="form-group">
-                <label asp-for="idClaseArticulo" class="control-label"></label>
-                <input asp-for="idClaseArticulo" class="form-control" />
-                <span asp-validation-for="idClaseArticulo" class="text-danger"></span>
+                <label class="control-label">Nombre</label>
+                <input type="text" name="nombre" class="form-control" required autocomplete="off" />
             </div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <label class="control-label">Valor de documento de identidad</label>
+                <input type="number" name="valorDocId" class="form-control" required />
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+                <label class="control-label">Tipo de documento de identidad</label>
+                <select name="tipoDocId" class="form-control" style="inline-size:auto; display:inline" required>
+                    @for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        <option>@Model.Rows[i][0].ToString()</option>
+                    }
+                </select>
             </div>
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-primary" />
+                <label class="control-label">Email</label>
+                <input type="email" name="email" class="form-control" required />
             </div>
+            <div class="form-group">
+                <label class="control-label">Telefono 1</label>
+                <input type="tel" pattern="[0-9]{8}" placeholder="88888888" name="telefono1" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label class="control-label">Telefono 2</label>
+                <input type="tel" pattern="[0-9]{8}" placeholder="88888888" name="telefono2" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Editar" class="btn btn-primary" />
+            </div>
+            <span class="text-danger">@ViewData["ErrorData"]</span>
         </form>
     </div>
 </div>

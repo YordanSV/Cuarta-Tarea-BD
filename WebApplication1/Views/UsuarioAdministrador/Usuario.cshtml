@@ -8,7 +8,7 @@
 
 <h1>Usuario</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreateUsuario">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -21,6 +21,9 @@
             </th>
             <th>
                 <p style="height:5px">Tipo Usuario</p>
+            </th>
+            <th>
+                <p style="height:5px">Nombre</p>
             </th>
         </tr>
     </thead>
@@ -42,9 +45,12 @@
                         <p style="height:5px">@Model.Rows[i][3].ToString()</p>
                     </td>
                     <td>
-                        <a asp-action="EditUsuario" asp-route-id="@id">Edit</a> |
-                        <a asp-action="DetailsUsuario" asp-route-id="@id">Details</a> |
-                        <a asp-action="DeleteUsuario" asp-route-id="@id">Delete</a>
+                        <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                    </td>
+                    <td>
+                        <a asp-action="EditUsuario" asp-route-id="@id">Editar</a> |
+                        <a asp-action="DetailsUsuario" asp-route-id="@id">Detalles</a> |
+                        <a asp-action="DeleteUsuario" asp-route-id="@id">Borrar</a>
                     </td>
                 </tr>
             }

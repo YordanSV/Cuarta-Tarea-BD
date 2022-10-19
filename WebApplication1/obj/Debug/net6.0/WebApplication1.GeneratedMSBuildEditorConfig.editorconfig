@@ -15,6 +15,7 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Usuario\Documents\Semestre actual\BD\SegundaTarea\Segunda-Tarea-BD\WebApplication1
 build_property._RazorSourceGeneratorDebug = 
 
+<<<<<<< HEAD
 [C:/Users/Usuario/Documents/Semestre actual/BD/SegundaTarea/Segunda-Tarea-BD/WebApplication1/Views/Articulo/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -24,6 +25,9 @@ build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aWN1bG9cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Usuario/Documents/Semestre actual/BD/SegundaTarea/Segunda-Tarea-BD/WebApplication1/Views/Login/Index.cshtml]
+=======
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/Login/Index.cshtml]
+>>>>>>> d5186c509e497cecc4d3d0e3d13db627f02c6a1e
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
@@ -107,7 +111,19 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVsZXRlVXN1YXJpb1Byb3BpZWRhZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+<<<<<<< HEAD
 [C:/Users/Usuario/Documents/Semestre actual/BD/SegundaTarea/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsPersona.cshtml]
+=======
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DesasociarPersonaPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVzYXNvY2lhclBlcnNvbmFQcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DesasociarUsuarioPropiedad.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGVzYXNvY2lhclVzdWFyaW9Qcm9waWVkYWQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Segunda-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/DetailsPersona.cshtml]
+>>>>>>> d5186c509e497cecc4d3d0e3d13db627f02c6a1e
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcRGV0YWlsc1BlcnNvbmEuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 

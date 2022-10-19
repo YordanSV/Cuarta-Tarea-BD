@@ -1,37 +1,42 @@
-﻿@model WebApplication1.Models.Articulo
+﻿@model System.Data.DataTable
 
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
 
-<h1>Details</h1>
+<h1>Detalles</h1>
 
 <div>
-    <h4>Articulo</h4>
+    <h4>Usuario</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.idClaseArticulo)
+        <dt class="col-sm-2">
+            Username
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.idClaseArticulo)
+        <dd class="col-sm-10">
+            @Model.Rows[0][0].ToString()
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
+        <dt class="col-sm-2">
+            Password
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
+        <dd class="col-sm-10">
+            @Model.Rows[0][1].ToString()
         </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
+        <dt class="col-sm-2">
+            Tipo de Usuario
         </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
+        <dd class="col-sm-10">
+            @Model.Rows[0][2].ToString()
+        </dd>
+        <dt class="col-sm-2">
+            Nombre
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Rows[0][3].ToString()
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
     <a asp-action="Usuario">Back to List</a>
 </div>

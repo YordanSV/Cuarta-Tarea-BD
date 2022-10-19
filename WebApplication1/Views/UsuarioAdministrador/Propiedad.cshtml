@@ -8,7 +8,7 @@
 
 <h1>Propiedades</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreatePropiedad">Crear Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -42,9 +42,6 @@
                 id = (int)Model.Rows[i][0];
                 <tr>
                     <td>
-                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
-                    </td>
-                    <td>
                         <p style="height:5px">@Model.Rows[i][1].ToString()</p>
                     </td>
                     <td>
@@ -60,9 +57,12 @@
                         <p style="height:5px">@Model.Rows[i][5].ToString()</p>
                     </td>
                     <td>
-                        <a asp-action="EditPropiedad" asp-route-id="@id">Edit</a> |
-                        <a asp-action="DetailsPropiedad" asp-route-id="@id">Details</a> |
-                        <a asp-action="DeletePropiedad" asp-route-id="@id">Delete</a>
+                        <p style="height:5px">@Model.Rows[i][6].ToString()</p>
+                    </td>
+                    <td>
+                        <a asp-action="EditPropiedad" asp-route-id="@id">Editar</a> |
+                        <a asp-action="DetailsPropiedad" asp-route-id="@id">Detalles</a> |
+                        <a asp-action="DeletePropiedad" asp-route-id="@id">Borrar</a>
                     </td>
                 </tr>
             }
