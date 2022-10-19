@@ -8,7 +8,7 @@
 
 <h1>Persona-Propiedad</h1>
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="CreatePersonaPropiedad">Asociar Nuevo</a>
 </p>
 <table class="table">
     <thead>
@@ -35,9 +35,10 @@
                         <p style="height:5px">@Model.Rows[i][2].ToString()</p>
                     </td>
                     <td>
-                        <a asp-action="EditPersonaPropiedad" asp-route-id="@id">Edit</a> |
-                        <a asp-action="DetailsPersonaPropiedad" asp-route-id="@id">Details</a> |
-                        <a asp-action="DeletePersonaPropiedad" asp-route-id="@id">Delete</a>
+                        <a asp-action="EditPersonaPropiedad" asp-route-id="@id">Editar</a> |
+                        <a asp-action="DetailsPersonaPropiedad" asp-route-id="@id">Detalles</a> |
+                        <a asp-action="DesasociarPersonaPropiedad" asp-route-id="@id">Desasociar</a> |
+                        <a asp-action="DeletePersonaPropiedad" asp-route-id="@id">Borrar</a>
                     </td>
                 </tr>
             }

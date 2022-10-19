@@ -1,36 +1,58 @@
-﻿@model WebApplication1.Models.Articulo
+﻿@model System.Data.DataTable
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Crear</h1>
 
-<h4>Articulo</h4>
+<h4>Propiedad</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <form asp-action="CreatePropiedad">
             <div class="form-group">
-                <label asp-for="idClaseArticulo" class="control-label"></label>
-                <input asp-for="idClaseArticulo" class="form-control" />
-                <span asp-validation-for="idClaseArticulo" class="text-danger"></span>
+                <label class="control-label">Número de Finca</label>
+                <input type="number" name="numFinca" class="form-control" required autocomplete="off" />
             </div>
             <div class="form-group">
-                <label asp-for="Nombre" class="control-label"></label>
-                <input asp-for="Nombre" class="form-control" />
-                <span asp-validation-for="Nombre" class="text-danger"></span>
+                <label class="control-label">Área</label>
+                <input type="number" name="area" class="form-control" required />
             </div>
             <div class="form-group">
-                <label asp-for="Precio" class="control-label"></label>
-                <input asp-for="Precio" class="form-control" />
-                <span asp-validation-for="Precio" class="text-danger"></span>
+                <label class="control-label">Valor Fiscal</label>
+                <input type="text" name="valor" class="form-control" required />
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <label class="control-label">Tipo de Uso de Terreno</label>
+                <select name="tipoTerreno" class="form-control" style="inline-size:auto; display:inline" required>
+                    @{
+                        int i;
+                        for (i = 0; i < Model.Rows.Count; i++)
+                            if (Model.Rows[i][0].ToString() != "")
+                            {
+                                <option>@Model.Rows[i][0].ToString()</option>
+                            }
+                            else
+                                break;
+                    }
+                    
+                </select>
             </div>
+            <div class="form-group">
+                <label class="control-label">Tipo de Zona</label>
+                <select name="tipoZona" class="form-control" style="inline-size:auto; display:inline" required>
+                    @for (i = i + 1; i < Model.Rows.Count; i++)
+                    {
+                        <option>@Model.Rows[i][0].ToString()</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Crear" class="btn btn-primary" />
+            </div>
+            <span class="text-danger">@ViewData["ErrorData"]</span>
         </form>
     </div>
 </div>
