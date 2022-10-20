@@ -5,10 +5,12 @@ SET NOCOUNT ON
 DECLARE @Fechas TABLE (fechaOperacion DATE);  
 
 DECLARE @Persona TABLE(nombre VARCHAR(128), ValorDocumentoIdentidad BIGINT, TipoDocumentoIdentidad VARCHAR(128), Email VARCHAR(128),Telefono1 BIGINT, Telefono2 BIGINT);
-DECLARE @Propiedad TABLE(NumeroFinca INT,MetrosCuadrados FLOAT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno VARCHAR(128), IdTipoZona VARCHAR(128), IdUsuario INT);
+DECLARE @Propiedad TABLE(NumeroFinca INT,MetrosCuadrados FLOAT,ValorFiscal VARCHAR(128),FechaRegistro DATE, IdTipoTerreno VARCHAR(128), IdTipoZona VARCHAR(128), IdUsuario INT, numMedidor INT);
 DECLARE @Usuario TABLE(ValorDocumentoIdentidad INT,UserName VARCHAR(128),VPassWord VARCHAR(128), TipoUsuario VARCHAR(128));
 DECLARE @PersonasyPropiedades TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio VARCHAR(128),FechaFin VARCHAR(128));
 DECLARE @PropiedadesyUsuarios TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT);
+DECLARE @MovConsumo TABLE(NumeroMedidor INT, TipoMovimiento VARCHAR(128), Valor MONEY);
+
 
 
 ----Declaracion de variables----
@@ -39,13 +41,14 @@ BEGIN
 	--DECLARE @PersonasyPropiedades TABLE(ValorDocumentoIdentidad INT,NumeroFinca INT, TipoAsociacion VARCHAR(128),FechaInicio DATE,FechaFin DATE);
 			-----------Insertar Propiedad-------------
 
-    INSERT @Propiedad(NumeroFinca,MetrosCuadrados ,ValorFiscal,IdTipoTerreno ,IdTipoZona)
+    INSERT @Propiedad(NumeroFinca,MetrosCuadrados ,ValorFiscal,IdTipoTerreno ,IdTipoZona, numMedidor)
     SELECT 
 		T.Item.value('@NumeroFinca','INT'),
 		T.Item.value('@MetrosCuadrados','FLOAT'),
         T.Item.value('@ValorFiscal','VARCHAR(128)'),
 		T.Item.value('@tipoUsoPropiedad','VARCHAR(128)'),
-        T.Item.value('@tipoZonaPropiedad','VARCHAR(128)')
+        T.Item.value('@tipoZonaPropiedad','VARCHAR(128)'),
+		T.Item.value('@NumeroMedidor','VARCHAR(128)')
 
 	FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Propiedades/Propiedad') as T(Item)
 
@@ -64,6 +67,23 @@ BEGIN
 		INNER JOIN dbo.TipoTerreno t ON t.Nombre = p.IdTipoTerreno
 		INNER JOIN dbo.TipoZona z ON z.Nombre = p.IdTipoZona
 	
+
+	INSERT dbo.PropiedadXCC(IdPropiedad,IdConceptoCobro)
+    SELECT 
+		p.ID,
+        1
+    FROM dbo.Propiedad p
+
+
+	INSERT dbo.PropiedadCCAgua(ID, NumeroMedidor, SaldoAcumulado)
+    SELECT 
+		PCC.ID,
+		Pr.numMedidor,
+        0
+    FROM dbo.Propiedad P
+	INNER JOIN dbo.PropiedadXCC PCC ON PCC.IdPropiedad = P.ID
+	INNER JOIN @Propiedad Pr ON Pr.NumeroFinca = P.NumFinca
+
     ----Nueva Persona-----
     INSERT @Persona(nombre , ValorDocumentoIdentidad, TipoDocumentoIdentidad , email, telefono1, telefono2)
     SELECT T.Item.value('@Nombre','VARCHAR(128)'),
@@ -149,19 +169,48 @@ BEGIN
 		INNER JOIN dbo.Propiedad Pr
 		ON Pr.NumFinca = PU.NumeroFinca
 
+
+	-----------Insertar lecturas-------------
+	INSERT @MovConsumo(NumeroMedidor, TipoMovimiento, Valor)
+    SELECT 
+        T.Item.value('@NumeroMedidor','INT'),
+		T.Item.value('@TipoMovimiento','VARCHAR(128)'),
+		T.Item.value('@Valor','MONEY')
+    FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Lecturas/LecturaMedidor') as T(Item)
+
+	INSERT dbo.MovimientoConsumo(Fecha, Monto, IdTipoMovimiento, IdPropiedadCCAgua)
+	SELECT	@fechaItera,
+			MC.Valor,
+			TM.ID,
+			PA.ID
+	FROM @MovConsumo MC, dbo.PropiedadCCAgua PA, dbo.TipoMovimientoConsumo TM
+	WHERE TM.Nombre = MC.TipoMovimiento
+	
+	UPDATE dbo.MovimientoConsumo
+	SET Monto = -Monto
+	WHERE IdTipoMovimiento = 3
+
+	UPDATE dbo.PropiedadCCAgua
+	SET SaldoAcumulado = SaldoAcumulado + MC.Monto
+	FROM dbo.MovimientoConsumo MC
+	WHERE PropiedadCCAgua.ID = MC.IdPropiedadCCAgua
+	
+
 	SELECT * FROM dbo.Persona
 	SELECT * FROM dbo.Usuario
 	SELECT * FROM dbo.Propiedad
 	SELECT * FROM dbo.PXP
+	SELECT * FROM dbo.PropiedadXCC
+	SELECT * FROM dbo.PropiedadCCAgua
+	SELECT * FROM dbo.MovimientoConsumo
 
 	DELETE @Persona 
 	DELETE @Usuario
 	DELETE @Propiedad
 	DELETE @PersonasyPropiedades
+	DELETE @MovConsumo
     
     SET @fechaItera= (DATEADD(DAY,1,@fechaItera)) --Siguiente
-
-
 
 END;
 
@@ -169,13 +218,18 @@ END;
 	DELETE dbo.Persona 
 	DELETE dbo.Usuario
 	DELETE dbo.Propiedad
+	DELETE dbo.PropiedadXCC
+	DELETE dbo.PropiedadCCAgua
+	DELETE dbo.MovimientoConsumo
 
 	DBCC CHECKIDENT (PXP, RESEED, 0)
 	DBCC CHECKIDENT (Persona, RESEED, 0)
     DBCC CHECKIDENT (Usuario, RESEED, 0)
     DBCC CHECKIDENT (Propiedad, RESEED, 0)
+	DBCC CHECKIDENT (PropiedadXCC, RESEED, 0)
+	DBCC CHECKIDENT (MovimientoConsumo, RESEED, 0)
 
-
+	
 	/*
 	USE [SegundaTarea]
 
