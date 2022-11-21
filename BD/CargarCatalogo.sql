@@ -1,9 +1,9 @@
-USE [TerceraTarea]
-
+USE [master]
+USE [CuartaTarea]
 
 DECLARE @hdoc int;  
 DECLARE @info xml;
-SET @info = (SELECT *FROM OPENROWSET(BULK 'C:\Users\Usuario\Downloads\Catalogo.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
+SET @info = (SELECT *FROM OPENROWSET(BULK 'C:\Users\Usuario\Documents\Semestre actual\BD\Cuarta-Tarea-BD\Cuarta-Tarea-BD\Data\Catalogo.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @info
 
 
@@ -20,11 +20,14 @@ DELETE dbo.CCPatente
 DELETE dbo.CCReconexion
 DELETE dbo.CCIntMoratorios
 DELETE dbo.CCMantParques
+--DELETE dbo.CCArregloDePago
 DELETE dbo.ConceptoCobro
 DELETE dbo.PeriodoMontoCC
 DELETE dbo.TipoMontoCC
 DELETE dbo.ParametroSistema
 DELETE dbo.TipoParametroSistema
+DELETE dbo.TipoMovimientoArregloDePago
+DELETE dbo.InteresesArregloDePago
 
 ----------------Insertar ClaseArticulo...........................
 
@@ -83,6 +86,21 @@ SELECT T.Item.value('@id','INT')
 FROM @info.nodes('/Catalogo/ParametrosSistema/ParametroSistema') as T(Item)
 INNER JOIN dbo.TipoParametroSistema TPS
 ON TPS.Nombre = T.Item.value('@NombreTipoPar','VARCHAR(128)')
+
+--Puede que a TipoMovimientoArregloDePago le falte atributo "Accion"
+INSERT dbo.TipoMovimientoArregloDePago(ID, Nombre)
+SELECT T.Item.value('@id','INT')
+	 , T.Item.value('@Nombre','VARCHAR(128)')
+FROM @info.nodes('/Catalogo/TiposMovimientosArregloPago/MovimientosArregloPago') as T(Item)
+
+
+INSERT dbo.InteresesArregloDePago(ID, PlazoEnMeses, TasaDeInteresAnual)
+SELECT T.Item.value('@id','INT')
+	 , T.Item.value('@PlazoEnMeses','INT')
+	 , T.Item.value('@TasaDeInteresAnual','FLOAT')
+FROM @info.nodes('/Catalogo/InteresesArregloDePago/Interes') as T(Item)
+
+
 
 INSERT dbo.ConceptoCobro(
 	ID
@@ -182,3 +200,16 @@ SELECT
   , T.Item.value('@ValorPorcentual','FLOAT')
 FROM @info.nodes('/Catalogo/CCs/CC') as T(Item)
 WHERE T.Item.value('@id','INT') = 7
+
+
+/*INSERT dbo.CCArregloDePago(
+	ID
+  , ValorFijo
+  , ValorPorcentual
+  )
+SELECT
+	T.Item.value('@id','INT')
+  , T.Item.value('@ValorFijo','INT')
+  , T.Item.value('@ValorPorcentual','FLOAT')
+FROM @info.nodes('/Catalogo/CCs/CC') as T(Item)
+WHERE T.Item.value('@id','INT') = 8*/
