@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "5lOpIaUX4u//sBP3IfVxc9nRKLY9ezIntrTvPoGYyYErIcgddL44rh7lPNSr9mFJ48mO3ve5n2UJtXZ5Yruf/w==",
+  "dgSpecHash": "cUXWvmioXgNUPH7v3BYY1Ic6vgPL/mAcZZm3pCDcwje7wG5klWi9vxq9B4WJtvfzJl/804s9otkT4R8pb+OLNA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\jburg\\source\\repos\\Segunda-Tarea-BD\\WebApplication1\\WebApplication1.csproj",
+  "projectFilePath": "C:\\Users\\jburg\\source\\repos\\Cuarta-Tarea-BD\\WebApplication1\\WebApplication1.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\jburg\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\jburg\\.nuget\\packages\\messagepack\\2.1.152\\messagepack.2.1.152.nupkg.sha512",
