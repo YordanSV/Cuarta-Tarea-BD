@@ -39,6 +39,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ArregloPago.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQXJyZWdsb1BhZ28uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioAdministrador/ConsultaPropiedadesPropietario.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcQ29uc3VsdGFQcm9waWVkYWRlc1Byb3BpZXRhcmlvLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -167,12 +171,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb0FkbWluaXN0cmFkb3JcVXN1YXJpb1Byb3BpZWRhZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Comprobante.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxDb21wcm9iYW50ZS5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/FacturasPagadas.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxGYWN0dXJhc1BhZ2FkYXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/FacturasPendientes.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxGYWN0dXJhc1BlbmRpZW50ZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Lecturas.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxMZWN0dXJhcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/UsuarioNoAdministrador/Pagar.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb05vQWRtaW5pc3RyYWRvclxQYWdhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/jburg/source/repos/Cuarta-Tarea-BD/WebApplication1/Views/_ViewImports.cshtml]

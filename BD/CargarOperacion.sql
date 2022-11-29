@@ -1,4 +1,4 @@
-USE [TerceraTarea]
+USE [CuartaTarea]
 
 
 DELETE dbo.DetalleCC
@@ -68,11 +68,7 @@ DECLARE @PropiedadesyUsuarios TABLE(
   , TipoAsociacion VARCHAR(128)
   );
 
-DECLARE @MovConsumo TABLE(
-	NumeroMedidor INT
-  , TipoMovimiento VARCHAR(128)
-  , Valor MONEY
-  );
+DECLARE @MovConsumo TableTypeMovConsumo
 
 
 ----Declaracion de variables----
@@ -290,13 +286,13 @@ BEGIN
 	IF NOT EXISTS (
 		SELECT 1
 		FROM dbo.UXP UP
-		INNER JOIN dbo.Propiedad P ON P.ID = UP.IdPropiedad
+		INNER JOIN dbo.Propiedad P ON P.ID = UP.ID
 		INNER JOIN @PropiedadesyUsuarios PU ON PU.NumeroFinca = P.NumFinca
 		)
 		BEGIN
 			INSERT dbo.UXP(
 				  IdUsuario
-				, IdPropiedad
+				, ID
 				, IdTipoAsociacion
 				, FechaInicio
 				, activo
@@ -317,7 +313,6 @@ BEGIN
 		BEGIN
 			UPDATE dbo.UXP
 			SET IdUsuario = u.ID
-				, IdPropiedad = pro.ID
 				, IdTipoAsociacion = ta.ID
 				, FechaInicio = @fechaItera
 				, activo = 1
@@ -326,7 +321,7 @@ BEGIN
 			INNER JOIN dbo.Usuario u ON p.ID = u.IdPersona
 			INNER JOIN dbo.Propiedad pro ON up.NumeroFinca = pro.NumFinca
 			INNER JOIN dbo.TipoAsociacion ta ON up.TipoAsociacion = ta.Nombre
-			WHERE pro.ID = IdPropiedad
+			WHERE pro.ID = UXP.ID
 		END
 	
 
@@ -342,34 +337,7 @@ BEGIN
 	  , T.Item.value('@Valor','MONEY')
     FROM @xmlOperacion.nodes('/Datos/Operacion[@Fecha=sql:variable("@FechaNodo")]/Lecturas/LecturaMedidor') as T(Item)
 
-	INSERT dbo.MovimientoConsumo(Fecha, Monto, IdTipoMovimiento, IdPropiedadCCAgua)
-	SELECT	@fechaItera,
-			MC.Valor,
-			TM.ID,
-			PA.ID
-	FROM @MovConsumo MC
-	INNER JOIN dbo.PropiedadCCAgua PA ON PA.NumeroMedidor = MC.NumeroMedidor
-	INNER JOIN dbo.TipoMovimientoConsumo TM ON TM.Nombre = MC.TipoMovimiento
-
-	UPDATE dbo.MovimientoConsumo
-	SET Monto = Monto * -1
-	WHERE IdTipoMovimiento = 3
-
-	UPDATE dbo.PropiedadCCAgua
-	SET SaldoAcumulado = MC.Monto
-	FROM dbo.MovimientoConsumo MC
-	INNER JOIN dbo.PropiedadXCC PCC ON PCC.ID = MC.IdPropiedadCCAgua
-	INNER JOIN Propiedad P ON P.ID = PCC.IdPropiedad
-	WHERE MC.IdTipoMovimiento = 1
-
-	UPDATE dbo.PropiedadCCAgua
-	SET SaldoAcumulado = SaldoAcumulado + MC.Monto
-	FROM dbo.MovimientoConsumo MC
-	INNER JOIN dbo.PropiedadXCC PCC ON PCC.ID = MC.IdPropiedadCCAgua
-	INNER JOIN Propiedad P ON P.ID = PCC.IdPropiedad
-	WHERE MC.IdTipoMovimiento = 2 OR MC.IdTipoMovimiento = 3
-	
-
+	EXEC proc_movConsumo @MovConsumo, @fechaitera, 0
 
 
 	SELECT * FROM dbo.Factura

@@ -1,0 +1,72 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "ArregloPago";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h1>Arreglo de Pago</h1>
+
+<form style="margin-bottom: 20px;" asp-action="ArregloPago">
+    <label class="control-label">Propiedad</label>
+    <input type="number" name="numFinca" value="" size="40" placeholder="Digite el numero de finca" required/>
+    <button class="btn btn-primary" type="submit" id="FactPendientes">Consultar</button>
+</form>
+
+@{
+    if (Model != null){
+        <h3>Facturas pendientes</h3>
+        <form style="margin-bottom: 20px;" asp-action="FacturasPendientes">
+            <label class="control-label">Crear Arreglo de Pago</label>
+            <button class="btn btn-primary" type="submit" id="FactPendientes">Crear</button>
+        </form>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>
+                        <p style="height:5px">Fecha</p>
+                    </th>
+                    <th>
+                        <p style="height:5px">Fecha Venc.</p>
+                    </th>
+                    <th>
+                        <p style="height:5px">Total Orig.</p>
+                    </th>
+                    <th>
+                        <p style="height:5px">Total Pagar</p>
+                    </th>
+                    <th>
+                        <p style="height:5px">Estado</p>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+
+                @{
+                    int id;
+                    for (int i = 0; i < Model.Rows.Count; i++)
+                    {
+                        id = (int)Model.Rows[i][6];
+                        <tr>
+                            <td>
+                                <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                            </td>
+                            <td>
+                                <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                            </td>
+                            <td>
+                                <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                            </td>
+                            <td>
+                                <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                            </td>
+                            <td>
+                                <p style="height:5px">@Model.Rows[i][5].ToString()</p>
+                            </td>
+                        </tr>
+                    }
+                }
+
+            </tbody>
+        </table>
+    }
+}

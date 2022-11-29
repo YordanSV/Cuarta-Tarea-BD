@@ -24,7 +24,7 @@ namespace WebApplication1.Controllers
             if (ModelState.IsValid)
             {
                 SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                    "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+                    "Initial Catalog=CuartaTarea;Integrated Security=SSPI");
                 SqlCommand cmd = new SqlCommand();
                 int result = 0;
                 cmd.Connection = con;

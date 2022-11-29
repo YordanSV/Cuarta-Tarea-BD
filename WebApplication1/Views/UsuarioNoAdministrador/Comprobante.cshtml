@@ -1,0 +1,41 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "Comprobante";
+    Layout = "~/Views/Shared/_LayoutNoAdministrador.cshtml";
+}
+
+<h1>Comprobante de pago</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            Fecha
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Rows[0][0].ToString()
+        </dd>
+        <dt class="col-sm-2">
+            Tipo de Pago
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Rows[0][1].ToString()
+        </dd>
+        <dt class="col-sm-2">
+            Numero de referencia
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Rows[0][2].ToString()
+        </dd>
+        <dt class="col-sm-2">
+            Monto pagado
+        </dt>
+        <dd class="col-sm-10">
+            @Model.Rows[0][3].ToString()
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="FacturasPagadas">Back to List</a>
+</div>

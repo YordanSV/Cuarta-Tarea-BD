@@ -12,7 +12,7 @@ namespace WebApplication1.Controllers
     {
         DataTable dt = new DataTable();
         SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
-                "Initial Catalog=SegundaTarea;Integrated Security=SSPI");
+                "Initial Catalog=CuartaTarea;Integrated Security=SSPI");
         int outResult = 0;
         // GET: HomeController1
         public ActionResult Persona()
@@ -102,7 +102,40 @@ namespace WebApplication1.Controllers
 
         public ActionResult Consultas()
         {
-            return View();
+            DataTable dt = FacturasPendientes(1);
+            return View(dt);
+        }
+
+        public ActionResult ArregloPago(int numFinca)
+        {
+            DataTable dt = FacturasPendientes(numFinca);
+            return View(dt);
+        }
+
+        public DataTable FacturasPendientes(int id)
+        {
+            outResult = 0;
+            if (id != 0)
+            {
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "proc_factPendientes";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+                cmd.Parameters.AddWithValue("@inId", 1);
+                SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+                retorno.Direction = ParameterDirection.Output;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+
+                return (dt);
+            }
+            else
+                return null;
         }
 
         public ActionResult ConsultaPropiedadesPropietario(string ident)

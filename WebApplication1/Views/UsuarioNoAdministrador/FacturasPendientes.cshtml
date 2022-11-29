@@ -1,0 +1,69 @@
+﻿@model System.Data.DataTable
+
+@{
+    ViewData["Title"] = "Pendientes";
+    Layout = "~/Views/Shared/_LayoutNoAdministrador.cshtml";
+}
+
+<h1>Facturas Pendientes</h1>
+
+@if (Model.Rows.Count > 0){
+<p>
+    Numero de Finca: @Model.Rows[0][0]
+</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">Fecha</p>
+            </th>
+            <th>
+                <p style="height:5px">Fecha Venc.</p>
+            </th>
+            <th>
+                <p style="height:5px">Total Orig.</p>
+            </th>
+            <th>
+                <p style="height:5px">Total Pagar</p>
+            </th>
+            <th>
+                <p style="height:5px">Estado</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int id;
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                id = (int)Model.Rows[i][6];
+                    <tr>
+                        <td>
+                            <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                        </td>
+                        <td>
+                            <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                        </td>
+                        <td>
+                            <p style="height:5px">@Model.Rows[i][3].ToString()</p>
+                        </td>
+                        <td>
+                            <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                        </td>
+                        <td>
+                            <p style="height:5px">@Model.Rows[i][5].ToString()</p>
+                        </td>
+                        @if (i == 0){
+                            <td>
+                                <a asp-action="Pagar" asp-route-id="@id">Pagar</a>
+                            </td>
+                        }
+                    </tr>
+            }
+        }
+
+    </tbody>
+</table>

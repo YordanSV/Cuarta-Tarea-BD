@@ -1,43 +1,44 @@
 ﻿@model System.Data.DataTable
+
 @{
-    ViewData["Title"] = "Inicio - Propietario";
+    ViewData["Title"] = "Pagadas";
     Layout = "~/Views/Shared/_LayoutNoAdministrador.cshtml";
 }
 
+<h1>Facturas Pagadas</h1>
 
-
-<h1>Propiedades</h1>
-
+@if (Model.Rows.Count > 0)
+{
+<p>
+    Numero de Finca: @Model.Rows[0][0]
+</p>
+}
 <table class="table">
     <thead>
         <tr>
             <th>
-                <p style="height:5px">Número de finca</p>
+                <p style="height:5px">Fecha</p>
             </th>
             <th>
-                <p style="height:5px">Valor Fiscal</p>
+                <p style="height:5px">Fecha Venc.</p>
             </th>
             <th>
-                <p style="height:5px">Area</p>
+                <p style="height:5px">Total Orig.</p>
             </th>
             <th>
-                <p style="height:5px">Fecha registro</p>
+                <p style="height:5px">Total Pagado</p>
             </th>
             <th>
-                <p style="height:5px">Tipo Zona</p>
-            </th>
-            <th>
-                <p style="height:5px">Tipo Terreno</p>
+                <p style="height:5px">Estado</p>
             </th>
         </tr>
     </thead>
     <tbody>
 
-        @for (int i = 0; i < Model.Rows.Count; i++)
-        {
-            if (Model.Rows[i][0].ToString() != "0")
+        @{
+            for (int i = 0; i < Model.Rows.Count; i++)
             {
-                int id = (int) Model.Rows[i][0];
+                int id = (int)Model.Rows[i][6];
                 <tr>
                     <td>
                         <p style="height:5px">@Model.Rows[i][1].ToString()</p>
@@ -55,17 +56,11 @@
                         <p style="height:5px">@Model.Rows[i][5].ToString()</p>
                     </td>
                     <td>
-                        <p style="height:5px">@Model.Rows[i][6].ToString()</p>
-                    </td>
-                    <td>
-                        <a asp-action="Lecturas" asp-route-id="@id">Lecturas</a> |
-                        <a asp-action="FacturasPendientes" asp-route-id="@id">Fact. pendientes</a> |
-                        <a asp-action="FacturasPagadas" asp-route-id="@id">Fact. pagadas</a>
+                        <a asp-action="Comprobante" asp-route-id="@id">Comprobante</a>
                     </td>
                 </tr>
             }
         }
+
     </tbody>
 </table>
-
-
