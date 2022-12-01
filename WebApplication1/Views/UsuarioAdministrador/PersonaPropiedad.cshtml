@@ -37,8 +37,10 @@
                     <td>
                         <a asp-action="EditPersonaPropiedad" asp-route-id="@id">Editar</a> |
                         <a asp-action="DetailsPersonaPropiedad" asp-route-id="@id">Detalles</a> |
-                        <a asp-action="DesasociarPersonaPropiedad" asp-route-id="@id">Desasociar</a> |
-                        <a asp-action="DeletePersonaPropiedad" asp-route-id="@id">Borrar</a>
+                        @if (Model.Rows[0][4].ToString() == ""){
+                            <a asp-action="DesasociarPersonaPropiedad" asp-route-id="@id">Desasociar</a>
+                        }
+                        | <a asp-action="DeletePersonaPropiedad" asp-route-id="@id">Borrar</a>
                     </td>
                 </tr>
             }

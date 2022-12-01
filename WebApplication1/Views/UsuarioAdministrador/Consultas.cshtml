@@ -29,3 +29,17 @@
     <input type="number" name="numFinca" value="" style="width:365px" placeholder="Digite el número de finca" autocomplete="off" required />
     <button class="btn btn-primary" type="submit" id="FiltNombre">Consultar</button>
 </form>
+
+<form style="margin-bottom: 20px;" asp-action="bitacoraCambios">
+    <label class="control-label">Cambios en entidades</label><br />
+    <select name="TipoEntidad" class="form-control" style="inline-size:auto; display:inline" required>
+        <option>Propiedad</option>
+        <option>Persona</option>
+        <option>Usuario</option>
+        <option>Persona-Propiedad</option>
+        <option>Usuario-Propiedad</option>
+    </select>
+    <input type="date" title="Fecha Inicio" name="fechaInicio"  required />
+    <input type="date" title="Fecha Fin" name="fechaFin" required />
+    <button class="btn btn-primary" type="submit" id="cambios">Consultar</button>
+</form>

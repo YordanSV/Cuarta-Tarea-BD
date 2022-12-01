@@ -1,0 +1,55 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "FormalizaArregloPago";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h1>Formaliza Arreglo de Pago</h1>
+
+<form style="margin-bottom: 20px;" asp-action="FormalizaAP">
+    <label class="control-label">Plazo en meses para AP</label>
+    <select name="plazo" title="Plazo en meses" class="form-control" style="inline-size:auto; display:inline" required>
+        <option>3</option>
+        <option>4</option>
+        <option>5</option>
+        <option>6</option>
+    </select>
+    <button class="btn btn-primary" type="submit" id="formalizaAP">Formalizar AP</button>
+</form>
+<span class="text-danger">@ViewData["Error"]</span>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">Plazo en meses</p>
+            </th>
+            <th>
+                <p style="height:5px">Tasa de interés</p>
+            </th>
+            <th>
+                <p style="height:5px">Cuota</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                </tr>
+            }
+        }
+
+    </tbody>
+</table>

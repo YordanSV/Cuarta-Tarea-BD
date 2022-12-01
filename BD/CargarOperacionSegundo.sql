@@ -1,33 +1,5 @@
 USE [CuartaTarea]
 
-DELETE dbo.Bitacora
-DELETE dbo.OrdenReconexion
-DELETE dbo.OrdenCorte
-DELETE dbo.ComprobantePago
-DELETE dbo.DetalleCC
-DELETE dbo.Factura
-DELETE dbo.PXP
-DELETE dbo.UXP
-DELETE dbo.Usuario
-DELETE dbo.Persona 
-DELETE dbo.MovimientoConsumo
-DELETE dbo.PropiedadCCAgua
-DELETE dbo.PropiedadXCC
-DELETE dbo.Propiedad
-
-DBCC CHECKIDENT (Bitacora, RESEED, 0)
-DBCC CHECKIDENT (OrdenCorte, RESEED, 0)
-DBCC CHECKIDENT (DetalleCC, RESEED, 0)
-DBCC CHECKIDENT (Factura, RESEED, 0)
-DBCC CHECKIDENT (PXP, RESEED, 0)
-DBCC CHECKIDENT (UXP, RESEED, 0)
-DBCC CHECKIDENT (Persona, RESEED, 0)
-DBCC CHECKIDENT (Usuario, RESEED, 0)
-DBCC CHECKIDENT (Propiedad, RESEED, 0)
-DBCC CHECKIDENT (PropiedadXCC, RESEED, 0)
-DBCC CHECKIDENT (MovimientoConsumo, RESEED, 0)
-
-
 SET NOCOUNT ON
 
 DECLARE @Fechas TABLE (fechaOperacion DATE);  
@@ -75,12 +47,6 @@ DECLARE @PropiedadesyUsuarios TABLE(
 
 DECLARE @MovConsumo TableTypeMovConsumo;
 
---DECLARE @MovConsumo TABLE(
---	NumeroMedidor INT
---  , TipoMovimiento VARCHAR(128)
---  , Valor MONEY
---  );
-
 DECLARE @Pago TableTypePago;
 
 ----Declaracion de variables----
@@ -95,7 +61,7 @@ DECLARE @fechaItera DATE
 
 SET @xmlOperacion = (
 	SELECT *
-	FROM OPENROWSET(BULK 'C:\Users\jburg\source\repos\Cuarta-Tarea-BD\Data\Operaciones.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
+	FROM OPENROWSET(BULK 'C:\Users\jburg\source\repos\Cuarta-Tarea-BD\Data\OperacionesSegundo.xml', SINGLE_BLOB) AS x) --Cargamos archivos de forma masiva
 EXEC sp_xml_preparedocument @hdoc OUTPUT, @xmlOperacion
 
 INSERT @Fechas(fechaOperacion)

@@ -1,0 +1,122 @@
+﻿@model System.Data.DataTable
+@{
+    ViewData["Title"] = "Bitacora Cambios";
+    Layout = "~/Views/Shared/_LayoutAdministrador.cshtml";
+}
+
+<h1>Bitacora de cambios de las entidades según fechas</h1>
+@{
+    for (int i = 0; i < Model.Rows.Count; i++){
+        <div>
+            <hr />
+            <h4>Cambio</h4>
+            
+            <dl class="row">
+                <dt class="col-sm-2">
+                    Tipo Entidad
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][0].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    ID Entidad
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][1].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    JSON Antes
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][2].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    JSON Despues
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][3].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    Fecha
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][4].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    Autor
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][5].ToString()
+                </dd>
+                <dt class="col-sm-2">
+                    IP
+                </dt>
+                <dd class="col-sm-10">
+                    @Model.Rows[i][6].ToString()
+                </dd>
+            </dl>
+        </div>
+    }
+}
+@*
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <p style="height:5px">Tipo_Entidad</p>
+            </th>
+            <th>
+                <p style="height:5px">ID_Entidad</p>
+            </th>
+            <th>
+                <p style="height:5px">JSON Antes</p>
+            </th>
+            <th>
+                <p style="height:5px">JSON Despues</p>
+            </th>
+            <th>
+                <p style="height:5px">Fecha</p>
+            </th>
+            <th>
+                <p style="height:5px">Autor</p>
+            </th>
+            <th>
+                <p style="height:5px">IP</p>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @{
+            int id;
+            for (int i = 0; i < Model.Rows.Count; i++)
+            {
+                <tr>
+                    <td >
+                        <p style="height:5px">@Model.Rows[i][0].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][1].ToString()</p>
+                    </td>
+                    <td >
+                        <p style="height:50px; width:5px">@Model.Rows[i][2].ToString()</p>
+                    </td>
+                    <td >
+                        <p style="height:5px; width:5px">@Model.Rows[i][3].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][4].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][5].ToString()</p>
+                    </td>
+                    <td>
+                        <p style="height:5px">@Model.Rows[i][6].ToString()</p>
+                    </td>
+                </tr>
+            }
+        }
+    </tbody>
+</table>
+*@

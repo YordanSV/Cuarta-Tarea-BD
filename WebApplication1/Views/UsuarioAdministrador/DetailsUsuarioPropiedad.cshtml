@@ -23,6 +23,40 @@
         <dd class="col-sm-10">
             @Model.Rows[0][1].ToString()
         </dd>
+        <dt class="col-sm-2">
+            Fecha Inicio
+        </dt>
+        @{
+            if (Model.Rows[0][2].ToString() == "")
+            {
+                        <dd class="col-sm-10">
+                            No registrada
+                        </dd>
+            }
+            else
+            {
+                        <dd class="col-sm-10">
+                    @Model.Rows[0][2].ToString()
+                        </dd>
+            }
+        }
+        <dt class="col-sm-2">
+            Fecha Fin
+        </dt>
+        @{
+            if (Model.Rows[0][3].ToString() == "")
+            {
+                        <dd class="col-sm-10">
+                            No registrada
+                        </dd>
+            }
+            else
+            {
+                        <dd class="col-sm-10">
+                    @Model.Rows[0][3].ToString()
+                        </dd>
+            }
+        }
     </dl>
 </div>
 <div>

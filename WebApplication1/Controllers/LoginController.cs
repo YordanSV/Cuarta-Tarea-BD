@@ -46,7 +46,7 @@ namespace WebApplication1.Controllers
                 {
                     
                     //View("Persona", usuario.Nombre);
-                    return RedirectToAction("Persona", "UsuarioAdministrador");
+                    return RedirectToAction("Persona", "UsuarioAdministrador", new { user = usuario.Nombre });
                 }
                 if (result == 2)
                 {

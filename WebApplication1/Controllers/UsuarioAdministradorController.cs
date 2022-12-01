@@ -5,6 +5,9 @@ using Microsoft.EntityFrameworkCore.SqlServer.Query.Internal;
 using System.Collections.Generic;
 using System.Data;
 using WebApplication1.Models;
+using System;
+using WebApplication1.Data;
+using Microsoft.VisualBasic;
 
 namespace WebApplication1.Controllers
 {
@@ -14,9 +17,19 @@ namespace WebApplication1.Controllers
         SqlConnection con = new SqlConnection("Data Source=JPBR66\\SQLEXPRESS;" +
                 "Initial Catalog=CuartaTarea;Integrated Security=SSPI");
         int outResult = 0;
-        // GET: HomeController1
-        public ActionResult Persona()
+
+        private static string userName;
+        private static string remoteIpAddress;
+        private static int propiedad;
+
+        public ActionResult Persona(string user)
         {
+            if (user != null)
+                userName = user;
+
+            if (remoteIpAddress == null)
+                remoteIpAddress = Request.HttpContext.Connection.RemoteIpAddress.ToString();
+
             outResult = 0;
             SqlCommand cmd = new SqlCommand();
             cmd.Connection = con;
@@ -112,18 +125,19 @@ namespace WebApplication1.Controllers
             return View(dt);
         }
 
-        public DataTable FacturasPendientes(int id)
+        public DataTable FacturasPendientes(int numFinca)
         {
             outResult = 0;
-            if (id != 0)
+            if (numFinca != 0)
             {
+                propiedad = numFinca;
                 SqlCommand cmd = new SqlCommand();
                 cmd.Connection = con;
-                cmd.CommandText = "proc_factPendientes";
+                cmd.CommandText = "proc_factPendientesAP";
                 cmd.CommandType = CommandType.StoredProcedure;
 
                 con.Open();
-                cmd.Parameters.AddWithValue("@inId", 1);
+                cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
                 SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
                 retorno.Direction = ParameterDirection.Output;
                 SqlDataAdapter da = new SqlDataAdapter();
@@ -136,6 +150,55 @@ namespace WebApplication1.Controllers
             }
             else
                 return null;
+        }
+
+        public ActionResult FormalizaAP()
+        {
+            outResult = 0;
+                SqlCommand cmd = new SqlCommand();
+                cmd.Connection = con;
+                cmd.CommandText = "proc_obtenerCuotaAP";
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                con.Open();
+                cmd.Parameters.AddWithValue("@inNumFinca", propiedad);
+                SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+                retorno.Direction = ParameterDirection.Output;
+                SqlDataAdapter da = new SqlDataAdapter();
+                da.SelectCommand = cmd;
+                DataTable dt = new DataTable();
+                da.Fill(dt);
+                con.Close();
+
+                return View(dt);
+
+        }
+
+        [HttpPost]
+        public ActionResult FormalizaAP(int plazo)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_formalizaAP";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inPlazo", plazo);
+            cmd.Parameters.AddWithValue("@inNumFinca", propiedad);
+            SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+            retorno.Direction = ParameterDirection.Output;
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            outResult = (int)retorno.Value;
+            if (outResult != 50007)
+                return RedirectToAction("ArregloPago");
+            else
+            {
+                ViewData["Error"] = "Error en formalizar AP";
+                return FormalizaAP();
+            }
+                
         }
 
         public ActionResult ConsultaPropiedadesPropietario(string ident)
@@ -219,6 +282,41 @@ namespace WebApplication1.Controllers
             return View(dt);
         }
 
+        public ActionResult bitacoraCambios(string TipoEntidad, string fechaInicio, string fechaFin)
+        {
+            int tipo = 0;
+            if (TipoEntidad == "Propiedad")
+                tipo = 1;
+            if (TipoEntidad == "Persona")
+                tipo = 2;
+            if (TipoEntidad == "Usuario")
+                tipo = 3;
+            if (TipoEntidad == "Persona-Propiedad")
+                tipo = 4;
+            if (TipoEntidad == "Usuario-Propiedad")
+                tipo = 5;
+
+            outResult = 0;
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_obtenerCambios";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inTipoEntidad", tipo);
+            cmd.Parameters.AddWithValue("@inFechaInicio", fechaInicio);
+            cmd.Parameters.AddWithValue("@inFechaFin", fechaFin);
+            SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+            retorno.Direction = ParameterDirection.Output;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            return View(dt);
+        }
+
         public ActionResult CreatePersona()
         {
             SqlCommand cmd = new SqlCommand();
@@ -257,6 +355,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inEmail", email);
             cmd.Parameters.AddWithValue("@inTele1", telefono1);
             cmd.Parameters.AddWithValue("@inTele2", telefono2);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -308,6 +408,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inEmail", email);
             cmd.Parameters.AddWithValue("@inTele1", telefono1);
             cmd.Parameters.AddWithValue("@inTele2", telefono2);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -351,6 +453,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -435,6 +539,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inValor", valor);
             cmd.Parameters.AddWithValue("@inTipoTerreno", tipoTerreno);
             cmd.Parameters.AddWithValue("@inTipoZona", tipoZona);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -500,6 +606,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inValor", valor);
             cmd.Parameters.AddWithValue("@inTipoTerreno", tipoTerreno);
             cmd.Parameters.AddWithValue("@inTipoZona", tipoZona);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -543,6 +651,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -600,6 +710,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inPassword", password);
             cmd.Parameters.AddWithValue("@inTipoUsuario", tipoUsuario);
             cmd.Parameters.AddWithValue("@inValorDocId", valoDocId);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -638,6 +750,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inPassword", password);
             cmd.Parameters.AddWithValue("@inTipoUsuario", tipoUsuario);
             cmd.Parameters.AddWithValue("@inValorDocId", valoDocId);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -681,6 +795,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -736,6 +852,8 @@ namespace WebApplication1.Controllers
             con.Open();
             cmd.Parameters.AddWithValue("@inValorDocId", valorDocId);
             cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -768,6 +886,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inId", id);
             cmd.Parameters.AddWithValue("@inValorDocId", valorDocId);
             cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -811,6 +931,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -854,6 +976,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -909,6 +1033,8 @@ namespace WebApplication1.Controllers
             con.Open();
             cmd.Parameters.AddWithValue("@inValorDocId", valorDocId);
             cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -925,11 +1051,7 @@ namespace WebApplication1.Controllers
             if (outResult == 50007)
                 ViewData["ErrorData"] = "Error al asociar al usuario con la propiedad";
             else if (outResult == 50008)
-                ViewData["ErrorData"] = "EL valor de documento de identidad no se encuentra registrado";
-            else if (outResult == 50009)
-                ViewData["ErrorData"] = "El numero de finca no se encuentra registrado";
-            else if (outResult == 50010)
-                ViewData["ErrorData"] = "Ya existe una asociación vigente en la propiedad dada";
+                ViewData["ErrorData"] = "Ya existe una asociación vigente entre la persona y la propiedad dados";
             return View();
         }
 
@@ -945,6 +1067,8 @@ namespace WebApplication1.Controllers
             cmd.Parameters.AddWithValue("@inId", id);
             cmd.Parameters.AddWithValue("@inValorDocId", valorDocId);
             cmd.Parameters.AddWithValue("@inNumFinca", numFinca);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -988,6 +1112,8 @@ namespace WebApplication1.Controllers
 
             con.Open();
             cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
             SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
             retorno.Direction = ParameterDirection.Output;
             cmd.ExecuteNonQuery();
@@ -1017,6 +1143,51 @@ namespace WebApplication1.Controllers
             con.Close();
 
             return View(dt);
+        }
+
+        public ActionResult DeleteUsuarioPropiedad(int id)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_detallesUsuarioPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inId", id);
+            SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+            retorno.Direction = ParameterDirection.Output;
+            SqlDataAdapter da = new SqlDataAdapter();
+            da.SelectCommand = cmd;
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            con.Close();
+
+            if (outResult == 50007)
+                ViewData["ErrorData"] = "Error al borrar al usuario con la propiedad";
+            return View(dt);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUsuarioPropiedad(int id, int nada)
+        {
+            SqlCommand cmd = new SqlCommand();
+            cmd.Connection = con;
+            cmd.CommandText = "proc_eliminarUsuarioPropiedad";
+            cmd.CommandType = CommandType.StoredProcedure;
+
+            con.Open();
+            cmd.Parameters.AddWithValue("@inId", id);
+            cmd.Parameters.AddWithValue("@inUsuario", userName);
+            cmd.Parameters.AddWithValue("@inIP", remoteIpAddress);
+            SqlParameter retorno = cmd.Parameters.Add("@outResult", SqlDbType.Int);
+            retorno.Direction = ParameterDirection.Output;
+            cmd.ExecuteNonQuery();
+            con.Close();
+
+            outResult = (int)retorno.Value;
+            if (outResult == 0)
+                return RedirectToAction("UsuarioPropiedad");
+            return DeleteUsuarioPropiedad(id);
         }
     }
 }
